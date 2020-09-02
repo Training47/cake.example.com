@@ -117,5 +117,6 @@ class Application extends BaseApplication
         $this->addPlugin('Migrations');
 
         // Load more plugins here
+        $this->addPlugin(\CakeDC\Users\Plugin::class);
     }
 }
