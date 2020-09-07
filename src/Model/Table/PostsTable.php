@@ -7,6 +7,8 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+// the Text class
+use Cake\Utility\Text;
 
 /**
  * Posts Model
@@ -50,6 +52,26 @@ class PostsTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
         ]);
+    }
+
+    // Create the method for creating a slug
+
+    public function createSlug($title)
+    {
+        return Text::slug(
+            strtolower(
+                substr($title, 0, 191)
+            )
+        );
+    }
+
+    // Call createSlug() from the beforeMarshal() callback
+
+    public function beforeMarshal($event, $data)
+    {
+        if (!isset($data['slug']) && !empty($data['title'])) {
+            $data['slug'] = $this->createSlug($data['title']);
+        }
     }
 
     /**
