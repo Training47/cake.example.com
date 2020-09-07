@@ -97,8 +97,10 @@ class Application extends BaseApplication
             // https://book.cakephp.org/4/en/controllers/middleware.html#cross-site-request-forgery-csrf-middleware
             ->add(new CsrfProtectionMiddleware([
                 'httponly' => true,
+            
             ]));
 
+            
         return $middlewareQueue;
     }
 
@@ -117,9 +119,8 @@ class Application extends BaseApplication
             // Do not halt if the plugin is missing
         }
 
+        // Load more plugins here
         $this->addPlugin('Migrations');
         $this->addPlugin('Authentication');
-        // Load more plugins here
-      
     }
 }
